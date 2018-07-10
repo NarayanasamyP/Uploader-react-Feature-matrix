@@ -4,7 +4,6 @@ import * as React from 'react';
 import '../../App.css';
 import '../uploader/template.css';
 
-
 export class UploaderTemplate extends React.Component<{}, {}> {
    public uploadObj: UploaderComponent;
    public dialogInstance: DialogComponent; 
@@ -14,7 +13,7 @@ export class UploaderTemplate extends React.Component<{}, {}> {
         <span className='fileListwrapper'>
         <span className= {`icon template-icons sf-icon-${data.type}`}/>
         <span className='upload-name file-name'>{data.name} ( {data.size} bytes )</span>
-        <span className='upload-status'>{data.status}</span></span>
+        <span id ="state" className='upload-status'>{data.status}</span></span>
         <span className='e-icons e-file-remove-btn' title='Remove'/>
      </span>
      )
@@ -32,8 +31,9 @@ export class UploaderTemplate extends React.Component<{}, {}> {
  }
  public onUploadInProgress(args: any) : void {
     const progressValue : string = Math.round((args.e.loaded / args.e.total) * 100) + '%';
-    const li: HTMLElement = this.getLiElement(args);
-    (li as any).querySelector('.upload-status').innerHTML = args.file.status + '(' + progressValue + ' )';
+    const li: any = this.getLiElement(args);
+    // li.querySelector('.upload-status').innerHTML = args.file.status + '(' + progressValue + ' )';
+  li.querySelectorAll('.upload-status').innerHTML= args.file.status + '(' + progressValue + ' )';
  }
  public onSelect(args: any) : void {
     const allowedTypes: string[] = ['pdf', 'png', 'txt'];
@@ -51,7 +51,7 @@ export class UploaderTemplate extends React.Component<{}, {}> {
  public getLiElement(args: any) {
        const liElements : NodeListOf<HTMLElement> = document.getElementsByClassName('e-upload')[0].querySelectorAll('.e-upload-files > li');
        let li : any;
-       for (const i of args.filesData) {
+       for (const i of [liElements.length-1]) {
            if ( liElements[i].getAttribute('data-file-name') === args.file.name ) {
             li = liElements[i];
            }
