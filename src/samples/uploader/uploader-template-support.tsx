@@ -4,6 +4,7 @@ import * as React from 'react';
 import '../../App.css';
 import '../uploader/template.css';
 
+
 export class UploaderTemplate extends React.Component<{}, {}> {
    public uploadObj: UploaderComponent;
    public dialogInstance: DialogComponent; 
@@ -51,9 +52,10 @@ export class UploaderTemplate extends React.Component<{}, {}> {
  public getLiElement(args: any) {
        const liElements : NodeListOf<HTMLElement> = document.getElementsByClassName('e-upload')[0].querySelectorAll('.e-upload-files > li');
        let li : any;
-       for (const i of [liElements.length-1]) {
-           if ( liElements[i].getAttribute('data-file-name') === args.file.name ) {
-            li = liElements[i];
+	   const listItems = [].slice.call(liElements);
+       for (const list of listItems) {
+           if ( list.getAttribute('data-file-name') === args.file.name ) {
+            li = list;
            }
        }
        return (li);
