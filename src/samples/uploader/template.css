@@ -2,6 +2,10 @@
     position: relative;
 }
 
+.template-icons {
+    padding-left: 4%;
+}
+
 .customdropArea {
     padding: 3% 30% 3%;
     display: block;        
@@ -88,7 +92,7 @@ span#dropText {
     position: relative;
     font-size: 12px;
     display: block;
-    padding: 5px;
+    padding: 5px 5px 5px 20px;
     top: -8px;
 }
 
