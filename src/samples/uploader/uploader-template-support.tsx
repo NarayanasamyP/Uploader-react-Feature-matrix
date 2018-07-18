@@ -1,5 +1,6 @@
+import { detach} from '@syncfusion/ej2-base';
 import { RemovingEventArgs, UploaderComponent } from '@syncfusion/ej2-react-inputs';
-import { DialogComponent} from '@syncfusion/ej2-react-popups'
+import { DialogComponent} from '@syncfusion/ej2-react-popups';
 import * as React from 'react';
 import '../../App.css';
 import '../uploader/template.css';
@@ -7,7 +8,26 @@ import '../uploader/template.css';
 
 export class UploaderTemplate extends React.Component<{}, {}> {
    public uploadObj: UploaderComponent;
-   public dialogInstance: DialogComponent; 
+   public dialogInstance: DialogComponent;
+   public componentDidMount() {   
+    (document as any).getElementById('customdropArea').onclick = (args: any) => {
+         const uploaderObj = (document as any).querySelector('#UploadFiles').ej2_instances[0];
+        const target = args.target;
+        const fileData = uploaderObj.getFilesData();
+        const arrayItems = [].slice.call(fileData);
+        if (target.classList.contains('e-file-delete-btn')) {
+            for (const name of arrayItems) {
+                window.console.log(name);
+                if (target.closest('li').getAttribute('data-file-name') === name.name) {
+                    uploaderObj.remove(name);
+                }
+            }
+        }
+        else if (target.classList.contains('e-file-remove-btn')) {
+            detach(target.closest('li'));
+        }
+    };
+   }
  public listTemplate(data: any): JSX.Element {
      return (
      <span>
